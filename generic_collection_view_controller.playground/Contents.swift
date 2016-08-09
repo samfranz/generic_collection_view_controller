@@ -47,6 +47,10 @@ final class SourceAssetsViewController<Asset, Cell: UICollectionViewCell>: UICol
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let asset = assets[indexPath.row]
         didSelect(asset)
+        
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! Cell
+        cell.layer.borderColor = UIColor.magentaColor().CGColor
+        cell.layer.borderWidth = 2
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -56,6 +60,8 @@ final class SourceAssetsViewController<Asset, Cell: UICollectionViewCell>: UICol
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! Cell
         let asset = assets[indexPath.row]
+        cell.layer.cornerRadius = 14
+        cell.layer.masksToBounds = true
         configure(cell, asset)
         return cell
     }
@@ -100,20 +106,22 @@ let sourceVC = SourceAssetsViewController(assets: sampleAssets, configure: { (ce
     cell.label.frame = cell.bounds
     cell.addSubview(cell.label)
 })
-sourceVC.title = "Nav bar"
 
 let nav = UINavigationController(rootViewController: sourceVC)
+sourceVC.title = "Nav Bar"
 
 sourceVC.didSelect = { asset in
-    let sourceVC = SourceAssetsViewController(assets: sampleAssets, configure: { (cell: AssetCell, asset) in
+    let pushSourceVC = SourceAssetsViewController(assets: sampleAssets, configure: { (cell: AssetCell, asset) in
         cell.backgroundColor = UIColor.randomColor()
         cell.label.text = asset.title
         cell.label.textColor = .whiteColor()
         cell.label.frame = cell.bounds
         cell.addSubview(cell.label)
     })
-    sourceVC.title = asset.title
-    nav.pushViewController(sourceVC, animated: true)
+    nav.pushViewController(pushSourceVC, animated: true)
+    
+    pushSourceVC.title = asset.title
+    pushSourceVC.didSelect = sourceVC.didSelect
 }
 
 nav.view.frame = CGRect(x: 0, y: 0, width: 320, height: 480)
