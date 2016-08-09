@@ -93,14 +93,16 @@ let sampleAssets = [
     SourceAsset(title: "Third Episode")
 ]
 
-let assetsVC = SourceAssetsViewController(assets: sampleAssets, configure: { (cell: AssetCell, asset) in
+let sourceVC = SourceAssetsViewController(assets: sampleAssets, configure: { (cell: AssetCell, asset) in
     cell.backgroundColor = UIColor.randomColor()
     cell.label.text = asset.title
     cell.label.textColor = .whiteColor()
     cell.label.frame = cell.bounds
     cell.addSubview(cell.label)
 })
+sourceVC.title = "Nav bar"
 
-assetsVC.view.frame = CGRect(x: 0, y: 0, width: 320, height: 480)
-XCPlaygroundPage.currentPage.liveView = assetsVC.view
-
+let nav = UINavigationController(rootViewController: sourceVC)
+nav.view.frame = CGRect(x: 0, y: 0, width: 320, height: 480)
+XCPlaygroundPage.currentPage.liveView = nav.view
+ 
