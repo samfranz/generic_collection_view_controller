@@ -3,7 +3,6 @@
 import UIKit
 import XCPlayground
 
-//----------------------------------------------------------------------------------------
 //MARK: - Extensions
 
 extension UIColor {
@@ -12,14 +11,12 @@ extension UIColor {
     }
 }
 
-//----------------------------------------------------------------------------------------
 //MARK: - Structs
 
 struct SourceAsset {
     var title: String
 }
 
-//----------------------------------------------------------------------------------------
 //MARK: - Classes
 
 final class SourceAssetsViewController<Asset, Cell: UICollectionViewCell>: UICollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -90,7 +87,6 @@ final class AssetCell: UICollectionViewCell {
     }
 }
 
-//----------------------------------------------------------------------------------------
 //MARK: - Implementation
 
 let sampleAssets = [
